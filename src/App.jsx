@@ -5,9 +5,10 @@ import Home from "./Pages/Homepage";
 import NotFound from "./Pages/PageNotFound";
 import Login from "./Pages/Login";
 import AppLayout from "./Pages/AppLayout";
-import CityList from "./Components/AppComponents/CityList";
+import CityList from "./Components/AppComponents/CityComponents/CityList";
 import { useEffect, useState } from "react";
-import CountryList from "./Components/AppComponents/CountryLish";
+import CountryList from "./Components/AppComponents/CountryComponent/CountryLish";
+import City from "./Components/AppComponents/CityComponents/City";
 
 const BASE_URL = "http://localhost:8000/cities";
 
@@ -51,6 +52,7 @@ function App() {
               path="cities"
               element={<CityList cities={cities} isLoading={isLoading} />}
             />
+            <Route path="cities/:cityId" element={<City />} />
             <Route
               path="countries"
               element={<CountryList cities={cities} isLoading={isLoading} />}
