@@ -9,6 +9,7 @@
   background-size: cover;
   background-position: center;
   padding: 2.5rem 5rem;
+  position: relative;
 }
 
 .homepage section {
@@ -31,4 +32,18 @@
   font-size: 1.9rem;
   color: var(--color-light--1);
   margin-bottom: 2.5rem;
+}
+@media only screen and (max-width: 768px) {
+  .homepage {
+    margin: 0;
+    height: 100vh;
+  }
+  .homepage h1 {
+    font-size: 3rem;
+    line-height: 1.3;
+  }
+  .homepage h2 {
+    font-size: 1.6;
+    line-height: 1.3;
+  }
 }

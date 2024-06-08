@@ -1,0 +1,74 @@
+.checkBoxContainer {
+  position: fixed;
+  border-radius: 50%;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 10rem !important;
+  color: currentColor;
+}
+
+.icon {
+  display: block;
+  width: 50%; /* Adjust as needed to fit within the container */
+  height: 8%; /* Adjust thickness as needed */
+  background-color: currentColor; /* Use the color from the .checkBoxContainer */
+  margin: 4% 0; /* Space between the lines */
+}
+
+.checkbox {
+  position: fixed;
+  cursor: pointer;
+  z-index: 10;
+  opacity: 0;
+}
+.navigationBg {
+  position: fixed;
+
+  border-radius: 50%;
+  transition: 0.5s transform;
+}
+
+.nav {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%), translateY(50%);
+  font-size: 3rem;
+  display: flex;
+  flex-direction: column;
+}
+.ulContainer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 5;
+  background-color: transparent;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.ulContainer ul {
+  display: flex;
+  flex-direction: column;
+  animation: ulAnim 0.5s ease forwards;
+}
+.checkbox:checked + .navigationBg {
+  opacity: 1;
+  transform: scale(90);
+}
+
+@keyframes ulAnim {
+  0% {
+    transform: translateX(100rem);
+  }
+  to {
+    transform: translateX(0rem);
+  }
+}
