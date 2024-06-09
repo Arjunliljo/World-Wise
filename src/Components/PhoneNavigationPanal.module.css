@@ -26,7 +26,7 @@
 }
 .navigationBg {
   position: fixed;
-
+  z-index: 1;
   border-radius: 50%;
   transition: 0.5s transform;
 }
@@ -53,11 +53,11 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  animation: ulAnim 0.5s ease forwards;
 }
 .ulContainer ul {
   display: flex;
   flex-direction: column;
-  animation: ulAnim 0.5s ease forwards;
 }
 .checkbox:checked + .navigationBg {
   opacity: 1;
@@ -66,9 +66,17 @@
 
 @keyframes ulAnim {
   0% {
-    transform: translateX(100rem);
+    transform: translateX(-100rem);
   }
   to {
     transform: translateX(0rem);
+  }
+}
+@keyframes ulAnim2 {
+  0% {
+    transform: translateX(0rem);
+  }
+  to {
+    transform: translateX(-100rem);
   }
 }

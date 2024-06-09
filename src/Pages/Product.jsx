@@ -6,10 +6,12 @@ export default function Product() {
     <main className={styles.product}>
       <PageNav />
       <section>
-        <img
-          src="img-1.jpg"
-          alt="person with dog overlooking mountain with sunset"
-        />
+        <div className={styles.imgBox}>
+          <img
+            src="img-1.jpg"
+            alt="person with dog overlooking mountain with sunset"
+          />
+        </div>
         <div>
           <h2>About WorldWide.</h2>
           <p>
