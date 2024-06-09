@@ -1,11 +1,13 @@
 import { useState, useEffect } from "react";
-import Map from "../Components/AppComponents/Map";
+import Map from "../Components/AppComponents/MapComponents/Map";
 import SideBar from "../Components/AppComponents/SideBar";
 import PhoneNavigationPanal from "../Components/PhoneNavigationPanal";
 import styles from "./AppLayout.module.css";
+import { useCities } from "../Components/Contexts/CityContext";
 
 function AppLayout() {
-  const [isCheked, setIsCheked] = useState(false);
+  const { isChecked, setIsChecked } = useCities();
+
   const [isMobile, setIsMobile] = useState(() => window.innerWidth <= 800);
 
   useEffect(() => {
@@ -25,9 +27,9 @@ function AppLayout() {
       {isMobile && (
         <PhoneNavigationPanal
           top="2rem"
-          right="85%"
-          isChecked={isCheked}
-          onChecked={setIsCheked}
+          right="5rem"
+          isChecked={isChecked}
+          onChecked={setIsChecked}
           radialColors={["var(--color-dark--1)", "var(--color-dark--2)"]}
           bgCl="lightyellow"
           color="gray"
@@ -36,7 +38,8 @@ function AppLayout() {
         </PhoneNavigationPanal>
       )}
       {!isMobile && <SideBar />}
-      <Map onChecked={setIsCheked} />
+
+      <Map onChecked={setIsChecked} />
     </div>
   );
 }
