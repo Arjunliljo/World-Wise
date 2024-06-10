@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import styles from "./PhoneNavigationPanal.module.css";
 
 function PhoneNavigationPanal({
@@ -14,9 +15,11 @@ function PhoneNavigationPanal({
   arr = [],
 }) {
   const [radialColor1, radialColor2] = radialColors;
+
   const handleChecked = (e) => {
     onChecked(() => e.target.checked);
   };
+
   return (
     <>
       <div
@@ -44,7 +47,6 @@ function PhoneNavigationPanal({
           width: size,
           top: top,
           right: right,
-          backgroundColor: bgCl,
         }}
       />
       <div

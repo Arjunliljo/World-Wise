@@ -6,8 +6,8 @@ import styles from "./AppLayout.module.css";
 import { useCities } from "../Components/Contexts/CityContext";
 
 function AppLayout() {
-  const { isChecked, setIsChecked } = useCities();
-
+  // const { isChecked, setIsChecked } = useCities();
+  const [isChecked, setIsChecked] = useState(false);
   const [isMobile, setIsMobile] = useState(() => window.innerWidth <= 800);
 
   useEffect(() => {
