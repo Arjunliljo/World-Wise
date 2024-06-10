@@ -59,10 +59,6 @@ function PhoneNavigationPanal({
       <div
         className={styles.navigationBg}
         style={{
-          height: size,
-          width: size,
-          top: top,
-          right: right,
           background: `radial-gradient(circle, ${radialColor1}, ${radialColor2})`,
         }}
       ></div>

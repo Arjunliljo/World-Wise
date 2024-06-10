@@ -26,22 +26,18 @@
 }
 .navigationBg {
   position: fixed;
+  top: 0;
+  right: 0rem;
+  width: 100vw;
+  height: 100vh;
   z-index: 1000;
-  border-radius: 50%;
+  transform-origin: right;
   transition: 0.5s transform;
+  transform: scaleX(0);
 }
 .checkbox:checked + .navigationBg {
-  transform: scale(90);
+  transform: scaleX(1);
   z-index: 1001;
-}
-
-@keyframes navBgAnim {
-  0% {
-    transform: scale(0);
-  }
-  to {
-    transform: scale(90);
-  }
 }
 
 .nav {
@@ -68,26 +64,18 @@
   align-items: center;
   justify-content: center;
   z-index: 1001;
+  transform-origin: right;
   animation: bubble 0.5s ease;
 }
 .ulContainer ul {
   display: flex;
   flex-direction: column;
   z-index: 1001;
-  animation: ulAnim 0.5s ease;
 }
 
-@keyframes ulAnim {
-  0% {
-    transform: scale(0.3);
-  }
-  to {
-    transform: scale(1);
-  }
-}
 @keyframes bubble {
   0% {
-    transform: scale(0);
+    transform: scaleX(0);
   }
   to {
     transform: scale(1);
