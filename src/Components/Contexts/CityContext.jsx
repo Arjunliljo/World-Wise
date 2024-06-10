@@ -9,6 +9,19 @@ function CityProvider({ children }) {
   const [currentCity, setCurrentCity] = useState("");
 
   const [isChecked, setIsChecked] = useState(false);
+  const [isMobile, setIsMobile] = useState(() => window.innerWidth <= 800);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 800);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   useEffect(() => {
     setIsLoading(true);
@@ -43,6 +56,27 @@ function CityProvider({ children }) {
       setIsLoading(false);
     }
   }
+  async function createCity(newCity) {
+    setIsLoading(true);
+
+    try {
+      const res = await fetch(`${BASE_URL}/cities/`, {
+        method: "POST",
+        body: JSON.stringify(newCity),
+        headers: {
+          "content-type": "application/json",
+        },
+      });
+      const data = await res.json();
+      setCurrentCity(data);
+
+      setCities((cities) => [...cities, newCity]);
+    } catch {
+      alert("Error while fetching cities");
+    } finally {
+      setIsLoading(false);
+    }
+  }
 
   return (
     <CityContext.Provider
@@ -53,6 +87,9 @@ function CityProvider({ children }) {
         getCity,
         isChecked,
         setIsChecked,
+        createCity,
+        isMobile,
+        setIsMobile,
       }}
     >
       {children}

@@ -6,21 +6,7 @@ import styles from "./AppLayout.module.css";
 import { useCities } from "../Components/Contexts/CityContext";
 
 function AppLayout() {
-  const { isChecked, setIsChecked } = useCities();
-
-  const [isMobile, setIsMobile] = useState(() => window.innerWidth <= 800);
-
-  useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth <= 800);
-    };
-
-    window.addEventListener("resize", handleResize);
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
+  const { isChecked, setIsChecked, isMobile, setIsMobile } = useCities();
 
   return (
     <div className={styles.app}>

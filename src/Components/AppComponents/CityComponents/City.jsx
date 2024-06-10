@@ -17,7 +17,8 @@ const formatDate = (date) =>
 function City() {
   const { cityId } = useParams();
 
-  const { currentCity, getCity, isLoading, setIsChecked } = useCities();
+  const { currentCity, getCity, isLoading, setIsChecked, isMobile } =
+    useCities();
 
   useEffect(() => {
     getCity(cityId);
@@ -60,9 +61,11 @@ function City() {
       </div>
 
       <BackButton />
-      <Button type={"primary"} onClick={() => setIsChecked(false)}>
-        Go to Map {"->"}
-      </Button>
+      {isMobile && (
+        <Button type={"primary"} onClick={() => setIsChecked(false)}>
+          Go to Map {"->"}
+        </Button>
+      )}
     </div>
   );
 }
