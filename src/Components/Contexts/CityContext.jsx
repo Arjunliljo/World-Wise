@@ -72,7 +72,21 @@ function CityProvider({ children }) {
 
       setCities((cities) => [...cities, newCity]);
     } catch {
-      alert("Error while fetching cities");
+      alert("Error while creating cities");
+    } finally {
+      setIsLoading(false);
+    }
+  }
+  async function deleteCity(id) {
+    setIsLoading(true);
+    try {
+      await fetch(`${BASE_URL}/cities/`, {
+        method: "DELETE",
+      });
+
+      setCities((cities) => cities.filter((city) => city.id !== id));
+    } catch {
+      alert("Error while deleting cities");
     } finally {
       setIsLoading(false);
     }
@@ -90,6 +104,7 @@ function CityProvider({ children }) {
         createCity,
         isMobile,
         setIsMobile,
+        deleteCity,
       }}
     >
       {children}
