@@ -11,6 +11,7 @@ function PhoneNavigationPanal({
   color = "green",
   onChecked,
   isChecked,
+  icon,
   radialColors = ["#d6ffa5", "#397a1a"],
   arr = [],
 }) {
@@ -33,9 +34,15 @@ function PhoneNavigationPanal({
           color: color,
         }}
       >
-        <div className={styles.icon}></div>
-        <div className={styles.icon}></div>
-        <div className={styles.icon}></div>
+        {icon ? (
+          icon
+        ) : (
+          <>
+            <div className={styles.icon}></div>
+            <div className={styles.icon}></div>
+            <div className={styles.icon}></div>{" "}
+          </>
+        )}
       </div>
       <input
         type="checkbox"
