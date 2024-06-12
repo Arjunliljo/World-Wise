@@ -1,10 +1,4 @@
-import {
-  createContext,
-  useContext,
-  useEffect,
-  useReducer,
-  useState,
-} from "react";
+import { createContext, useContext, useEffect, useReducer } from "react";
 
 const BASE_URL = "http://localhost:8000";
 const CityContext = createContext();
@@ -41,7 +35,6 @@ function reducer(state, action) {
         cities: action.payload,
         isLoading: false,
       };
-
     case "city/loaded":
       return {
         ...state,
@@ -59,6 +52,7 @@ function reducer(state, action) {
       return {
         ...state,
         cities: state.cities.filter((city) => city.id !== action.payload),
+        isLoading: false,
       };
     case "rejected":
       return {
@@ -66,28 +60,21 @@ function reducer(state, action) {
         error: action.payload,
         isLoading: false,
       };
+    default:
+      return state;
   }
 }
 
 function CityProvider({ children }) {
-  // const [cities, setCities] = useState([]);
-  // const [isLoading, setIsLoading] = useState(false);
-  // const [currentCity, setCurrentCity] = useState("");
-
-  // const [isChecked, setIsChecked] = useState(false);
-  // const [isMobile, setIsMobile] = useState(() => window.innerWidth <= 800);
-
-  const [state, dispatch] = useReducer(reducer, initialState);
-
-  const { cities, isChecked, isLoading, currentCity, isMobile } = state;
+  const [{ cities, isChecked, isLoading, currentCity, isMobile }, dispatch] =
+    useReducer(reducer, initialState);
 
   const setIsChecked = (checked) => {
-    dispatch({ type: "navigation", payload: checked });
+    dispatch({ type: "checked", payload: checked });
   };
 
   useEffect(() => {
     const handleResize = () => {
-      // setIsMobile(window.innerWidth <= 800);
       dispatch({ type: "smallScreen", payload: window.innerWidth <= 800 });
     };
 
@@ -99,7 +86,7 @@ function CityProvider({ children }) {
   }, []);
 
   useEffect(() => {
-    dispatch({ type: "loading" });
+    dispatch({ type: "Loading" });
 
     const fetchCities = async () => {
       try {
@@ -108,7 +95,7 @@ function CityProvider({ children }) {
 
         dispatch({ type: "cities/loaded", payload: data });
       } catch {
-        dispatch({ type: "rejected", payload: "Erro rWhile fetching" });
+        dispatch({ type: "rejected", payload: "Error while fetching cities" });
       }
     };
 
@@ -118,22 +105,24 @@ function CityProvider({ children }) {
   }, []);
 
   async function getCity(id) {
-    dispatch({ type: "loading" });
+    if (id == currentCity.id) return;
+
+    dispatch({ type: "Loading" });
 
     try {
       const res = await fetch(`${BASE_URL}/cities/${id}`);
       const data = await res.json();
       dispatch({ type: "city/loaded", payload: data });
     } catch {
-      alert("Error while fetching cities");
-      dispatch({ type: "rejected", payload: "Error while fetching Cities" });
+      dispatch({ type: "rejected", payload: "Error while fetching city" });
     }
   }
+
   async function createCity(newCity) {
-    dispatch({ type: "loading" });
+    dispatch({ type: "Loading" });
 
     try {
-      const res = await fetch(`${BASE_URL}/cities/`, {
+      const res = await fetch(`${BASE_URL}/cities`, {
         method: "POST",
         body: JSON.stringify(newCity),
         headers: {
@@ -141,26 +130,23 @@ function CityProvider({ children }) {
         },
       });
       const data = await res.json();
-      // setCurrentCity(data);
-      dispatch({ type: "city/created", payload: newCity });
-      // setCities((cities) => [...cities, newCity]);
+      dispatch({ type: "cities/created", payload: data });
     } catch {
       dispatch({ type: "rejected", payload: "Error while creating city" });
-      alert("Error while creating cities");
     }
   }
+
   async function deleteCity(id) {
-    dispatch({ type: "loading" });
+    dispatch({ type: "Loading" });
+
     try {
-      await fetch(`${BASE_URL}/cities/`, {
+      await fetch(`${BASE_URL}/cities/${id}`, {
         method: "DELETE",
       });
 
-      dispatch({ type: "city/delted", payload: id });
+      dispatch({ type: "cities/deleted", payload: id });
     } catch {
-      alert("Error while deleting cities");
-      dispatch({ type: "rejected", payload: "Error while creating city" });
-      alert("Error while creating cities");
+      dispatch({ type: "rejected", payload: "Error while deleting city" });
     }
   }
 
@@ -182,10 +168,12 @@ function CityProvider({ children }) {
     </CityContext.Provider>
   );
 }
+
 function useCities() {
   const context = useContext(CityContext);
   if (context === undefined)
-    throw new Error("CitiesContext is used Outside of CitiesProvider");
+    throw new Error("CitiesContext is used outside of CitiesProvider");
   return context;
 }
+
 export { CityProvider, useCities };

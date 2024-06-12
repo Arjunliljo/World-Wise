@@ -1,10 +1,9 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import styles from "./PhoneNavigationPanal.module.css";
 
 function PhoneNavigationPanal({
   bgCl = "white",
   children,
-  className,
   size = "5rem",
   top = "6rem",
   right = "12rem",
@@ -18,7 +17,7 @@ function PhoneNavigationPanal({
   const [radialColor1, radialColor2] = radialColors;
 
   const handleChecked = (e) => {
-    onChecked(() => e.target.checked);
+    onChecked(e.target.checked);
   };
 
   return (
@@ -34,13 +33,11 @@ function PhoneNavigationPanal({
           color: color,
         }}
       >
-        {icon ? (
-          icon
-        ) : (
+        {icon || (
           <>
             <div className={styles.icon}></div>
             <div className={styles.icon}></div>
-            <div className={styles.icon}></div>{" "}
+            <div className={styles.icon}></div>
           </>
         )}
       </div>
