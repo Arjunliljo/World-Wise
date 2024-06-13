@@ -4,11 +4,12 @@ import PageNav from "../Components/PageNav";
 
 import Button from "../Components/UtilityComponents/Button";
 import styles from "./Login.module.css";
-import { useEffect, useRef } from "react";
 
 export default function Login() {
   const { password, setPassword, userName, setUserName, error, login } =
     useAuth();
+
+  const navigate = useNavigate("");
 
   return (
     <main className={styles.login}>
