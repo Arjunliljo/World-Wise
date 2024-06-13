@@ -4,7 +4,8 @@ import { useCities } from "../../Contexts/CityContext";
 import { useEffect } from "react";
 import Spinner from "../../Spinner";
 import BackButton from "../../UtilityComponents/BackButton";
-import Button from "../../Button";
+import Button from "../../UtilityComponents/Button";
+import Message from "../../Message";
 
 const formatDate = (date) =>
   new Intl.DateTimeFormat("en", {
@@ -17,7 +18,7 @@ const formatDate = (date) =>
 function City() {
   const { cityId } = useParams();
 
-  const { currentCity, getCity, isLoading, setIsChecked, isMobile } =
+  const { currentCity, getCity, isLoading, setIsChecked, isMobile, error } =
     useCities();
 
   useEffect(() => {
@@ -25,9 +26,9 @@ function City() {
   }, [cityId]);
 
   const { cityName, emoji, date, notes } = currentCity;
-
+  console.log(isLoading, error);
   if (isLoading) return <Spinner />;
-
+  if (error) return <Message message={"Error while fetching"} />;
   return (
     <div className={styles.city}>
       <div className={styles.row}>

@@ -11,7 +11,7 @@ import {
 import { useEffect, useState } from "react";
 import { useCities } from "../../Contexts/CityContext";
 import { useGeolocation } from "../../Hooks/useGeolocation";
-import Button from "../../Button";
+import Button from "../../UtilityComponents/Button";
 import { useUrlGeolacation } from "../../Hooks/useUrlPosition";
 
 const defaultPos = [10.8505, 76.2711];

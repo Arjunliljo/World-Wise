@@ -2,14 +2,20 @@ import { Outlet } from "react-router-dom";
 import AppNav from "../AppNav";
 import Logo from "../Logo";
 import styles from "./Sidebar.module.css";
+import User from "../User";
+import { useAuth } from "../Contexts/Authenticate";
 
 function SideBar() {
+  const { LOGGED_IN } = useAuth();
+
   return (
     <div className={styles.sidebar}>
       <Logo />
       <AppNav />
 
       <Outlet />
+
+      {LOGGED_IN && <User />}
 
       <footer className={styles.footer}>
         <p className={styles.copyright}>

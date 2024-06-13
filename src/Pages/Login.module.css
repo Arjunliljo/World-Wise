@@ -25,6 +25,21 @@
   gap: 0.5rem;
 }
 
+.signup {
+  width: 80%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  margin: 0 auto;
+}
+.signup span {
+  font-size: 2rem;
+}
+.notFound {
+  color: red;
+}
+
 @media screen and (max-width: 768px) {
   .login {
     margin: 0;

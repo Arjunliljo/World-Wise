@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useReducer } from "react";
 
-const BASE_URL = "http://localhost:8000";
+const BASE_URL = "http://localhost:3000";
 const CityContext = createContext();
 
 const initialState = {
@@ -18,6 +18,7 @@ function reducer(state, action) {
       return {
         ...state,
         isLoading: true,
+        error: "", // Reset error on loading
       };
     case "checked":
       return {
@@ -51,7 +52,7 @@ function reducer(state, action) {
     case "cities/deleted":
       return {
         ...state,
-        cities: state.cities.filter((city) => city.id !== action.payload),
+        cities: state.cities.filter((city, i) => city.id !== action.payload),
         isLoading: false,
       };
     case "rejected":
@@ -61,13 +62,17 @@ function reducer(state, action) {
         isLoading: false,
       };
     default:
-      return state;
+      throw new Error("Undefined action type");
   }
 }
 
 function CityProvider({ children }) {
-  const [{ cities, isChecked, isLoading, currentCity, isMobile }, dispatch] =
-    useReducer(reducer, initialState);
+  const [
+    { cities, isChecked, isLoading, currentCity, isMobile, error },
+    dispatch,
+  ] = useReducer(reducer, initialState);
+
+  cities.forEach((obj) => (obj.id = obj._id));
 
   const setIsChecked = (checked) => {
     dispatch({ type: "checked", payload: checked });
@@ -91,11 +96,13 @@ function CityProvider({ children }) {
     const fetchCities = async () => {
       try {
         const res = await fetch(`${BASE_URL}/cities`);
+        if (!res.ok) {
+          throw new Error("Failed to fetch cities");
+        }
         const data = await res.json();
-
         dispatch({ type: "cities/loaded", payload: data });
-      } catch {
-        dispatch({ type: "rejected", payload: "Error while fetching cities" });
+      } catch (error) {
+        dispatch({ type: "rejected", payload: error.message });
       }
     };
 
@@ -105,16 +112,19 @@ function CityProvider({ children }) {
   }, []);
 
   async function getCity(id) {
-    if (id == currentCity.id) return;
+    if (id === currentCity.id) return;
 
     dispatch({ type: "Loading" });
 
     try {
       const res = await fetch(`${BASE_URL}/cities/${id}`);
+      if (!res.ok) {
+        throw new Error("Failed to fetch city");
+      }
       const data = await res.json();
       dispatch({ type: "city/loaded", payload: data });
-    } catch {
-      dispatch({ type: "rejected", payload: "Error while fetching city" });
+    } catch (error) {
+      dispatch({ type: "rejected", payload: error.message });
     }
   }
 
@@ -126,13 +136,16 @@ function CityProvider({ children }) {
         method: "POST",
         body: JSON.stringify(newCity),
         headers: {
-          "content-type": "application/json",
+          "Content-Type": "application/json",
         },
       });
+      if (!res.ok) {
+        throw new Error("Failed to create city");
+      }
       const data = await res.json();
       dispatch({ type: "cities/created", payload: data });
-    } catch {
-      dispatch({ type: "rejected", payload: "Error while creating city" });
+    } catch (error) {
+      dispatch({ type: "rejected", payload: error.message });
     }
   }
 
@@ -140,13 +153,16 @@ function CityProvider({ children }) {
     dispatch({ type: "Loading" });
 
     try {
-      await fetch(`${BASE_URL}/cities/${id}`, {
+      const res = await fetch(`${BASE_URL}/cities/${id}`, {
         method: "DELETE",
       });
+      if (!res.ok) {
+        throw new Error("Failed to delete city");
+      }
 
       dispatch({ type: "cities/deleted", payload: id });
-    } catch {
-      dispatch({ type: "rejected", payload: "Error while deleting city" });
+    } catch (error) {
+      dispatch({ type: "rejected", payload: error.message });
     }
   }
 
@@ -162,6 +178,7 @@ function CityProvider({ children }) {
         createCity,
         isMobile,
         deleteCity,
+        error,
       }}
     >
       {children}
@@ -172,7 +189,7 @@ function CityProvider({ children }) {
 function useCities() {
   const context = useContext(CityContext);
   if (context === undefined)
-    throw new Error("CitiesContext is used outside of CitiesProvider");
+    throw new Error("useCities must be used within a CityProvider");
   return context;
 }
 

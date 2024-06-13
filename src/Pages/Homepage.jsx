@@ -1,8 +1,11 @@
 import { Link } from "react-router-dom";
 import styles from "./Homepage.module.css";
 import PageNav from "../Components/PageNav";
+import { useAuth } from "../Components/Contexts/Authenticate";
 
 export default function Homepage() {
+  const { LOGGED_IN } = useAuth();
+
   return (
     <main className={styles.homepage}>
       <PageNav />
@@ -18,7 +21,7 @@ export default function Homepage() {
           of. Never forget your wonderful experiences, and show your friends how
           you have wandered the world.
         </h2>
-        <Link to="/app" className="cta">
+        <Link to={LOGGED_IN ? "/app" : "/SignIn"} className="cta">
           Start tracking
         </Link>
       </section>

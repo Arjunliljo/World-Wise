@@ -4,17 +4,30 @@ import PageNav from "../Components/PageNav";
 
 import Button from "../Components/UtilityComponents/Button";
 import styles from "./Login.module.css";
-import { useEffect, useRef } from "react";
 
-export default function Login() {
-  const { password, setPassword, userName, setUserName, error, login } =
-    useAuth();
+export default function SignIn() {
+  const {
+    email,
+    setEmail,
+    password,
+    setPassword,
+    userName,
+    setUserName,
+    addUser,
+  } = useAuth();
+
+  const navigate = useNavigate("");
+
+  const handleSignUp = () => {
+    addUser();
+    navigate("/app");
+  };
 
   return (
     <main className={styles.login}>
       <PageNav />
 
-      <form className={styles.form} onSubmit={login}>
+      <form className={styles.form} onSubmit={handleSignUp}>
         <div className={styles.row}>
           <label htmlFor="userName">User Name</label>
           <input
@@ -24,7 +37,16 @@ export default function Login() {
             value={userName}
             required
           />
-          {error && <span className={styles.notFound}>Invalid User Name</span>}
+        </div>
+        <div className={styles.row}>
+          <label htmlFor="email">Email address</label>
+          <input
+            type="email"
+            id="email"
+            onChange={(e) => setEmail(e.target.value)}
+            value={email}
+            required
+          />
         </div>
 
         <div className={styles.row}>
@@ -36,17 +58,16 @@ export default function Login() {
             value={password}
             required
           />
-          {error && <span className={styles.notFound}>Invalid Password</span>}
         </div>
 
         <div>
-          <Button type="primary">Login</Button>
+          <Button type="primary">Sign up</Button>
         </div>
       </form>
       <div className={styles.signup}>
-        <span>Create an account ? </span>
-        <Button type="secondary" onClick={() => navigate("/SignIn")}>
-          Sign in
+        <span>Already having Account ? </span>
+        <Button onClick={() => navigate("/Login")} type="secondary">
+          Login
         </Button>
       </div>
     </main>

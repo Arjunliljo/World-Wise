@@ -6,7 +6,7 @@ import styles from "./AppLayout.module.css";
 import { useCities } from "../Components/Contexts/CityContext";
 
 function AppLayout() {
-  const { isChecked, setIsChecked, isMobile, setIsMobile } = useCities();
+  const { isChecked, setIsChecked, isMobile } = useCities();
 
   return (
     <div className={styles.app}>
