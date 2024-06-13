@@ -9,11 +9,13 @@ function AuthProvider({ children }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("111");
   const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const [LOGGED_IN, setLOGGED_IN] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
+    setIsLoading(true);
     const verifyLogin = async () => {
       try {
         const {
@@ -26,6 +28,8 @@ function AuthProvider({ children }) {
         console.log(e.message);
         setLOGGED_IN(false);
         return false;
+      } finally {
+        setIsLoading(false);
       }
     };
     verifyLogin();
@@ -40,6 +44,7 @@ function AuthProvider({ children }) {
   };
 
   const logout = async () => {
+    setIsLoading(true);
     try {
       await axios.post("http://localhost:3000/auth/logout", {
         withCredentials: true,
@@ -49,33 +54,42 @@ function AuthProvider({ children }) {
     } catch (e) {
       console.log(e);
       alert("Something went wrong please try again later");
+    } finally {
+      setIsLoading(false);
     }
   };
 
   const addUser = async () => {
     const data = { userName, email, password };
+    setIsLoading(true);
 
-    axios
-      .post("http://localhost:3000/user", data)
-      .then((res) => (LOGGED_IN.current = true))
-      .catch((e) => {
-        setError("Invalid User Name");
-        setLOGGED_IN(false);
-      });
+    try {
+      const res = await axios.post("http://localhost:3000/user", data);
+      setLOGGED_IN(true); // or use setLOGGED_IN(true) if using state
+    } catch (error) {
+      setError("Invalid User Name");
+      setLOGGED_IN(false); // or use setLOGGED_IN(false) if using state
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const checkUser = async () => {
     const data = { userName, password };
-    axios
-      .post("http://localhost:3000/auth/login", data, { withCredentials: true })
-      .then((res) => {
-        setLOGGED_IN(true);
-        return true;
-      })
-      .catch((e) => {
-        setError("Invalid password");
-        setLOGGED_IN(false);
+    try {
+      setIsLoading(true);
+      const res = await axios.post("http://localhost:3000/auth/login", data, {
+        withCredentials: true,
       });
+      setLOGGED_IN(true);
+      return true;
+    } catch (error) {
+      setError("Invalid password");
+      setLOGGED_IN(false);
+      return false;
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -94,6 +108,8 @@ function AuthProvider({ children }) {
         setLOGGED_IN,
         logout,
         login,
+        isLoading,
+        setIsLoading,
       }}
     >
       {children}

@@ -1,9 +1,12 @@
 import styles from "./Spinner.module.css";
 
-function Spinner() {
+function Spinner({ size = "6rem" }) {
   return (
     <div className={styles.spinnerContainer}>
-      <div className={styles.spinner}></div>
+      <div
+        className={styles.spinner}
+        style={{ height: size, width: size }}
+      ></div>
     </div>
   );
 }

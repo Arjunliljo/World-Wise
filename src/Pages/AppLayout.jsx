@@ -1,4 +1,3 @@
-import { useState, useEffect } from "react";
 import Map from "../Components/AppComponents/MapComponents/Map";
 import SideBar from "../Components/AppComponents/SideBar";
 import PhoneNavigationPanal from "../Components/PhoneNavigationPanal";
@@ -6,18 +5,22 @@ import styles from "./AppLayout.module.css";
 import { useCities } from "../Components/Contexts/CityContext";
 import { useAuth } from "../Components/Contexts/Authenticate";
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import Spinner from "../Components/Spinner";
 
 function AppLayout() {
   const { isChecked, setIsChecked, isMobile } = useCities();
 
-  const { LOGGED_IN } = useAuth();
+  const { LOGGED_IN, isLoading } = useAuth();
 
   const navigate = useNavigate();
 
-  if (!LOGGED_IN) {
-    navigate("/login");
-    return;
-  }
+  useEffect(() => {
+    if (isLoading) return;
+    if (!LOGGED_IN) navigate("/login");
+  }, [isLoading, LOGGED_IN]);
+
+  if (isLoading) return <Spinner />;
 
   return (
     <div className={styles.app}>

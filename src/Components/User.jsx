@@ -1,4 +1,5 @@
 import { useAuth } from "./Contexts/Authenticate";
+import Spinner from "./Spinner";
 import styles from "./User.module.css";
 
 const FAKE_USER = {
@@ -9,14 +10,18 @@ const FAKE_USER = {
 };
 
 function User() {
-  const { logout } = useAuth();
+  const { logout, isLoading } = useAuth();
   const user = FAKE_USER;
 
   return (
     <div className={styles.user}>
       <img src={user.avatar} alt={user.name} />
       <span>Welcome, {user.name}</span>
-      <button onClick={logout}>Logout</button>
+      {isLoading ? (
+        <Spinner size="2rem" />
+      ) : (
+        <button onClick={logout}>Logout</button>
+      )}
     </div>
   );
 }

@@ -4,6 +4,7 @@ import PageNav from "../Components/PageNav";
 
 import Button from "../Components/UtilityComponents/Button";
 import styles from "./Login.module.css";
+import Spinner from "../Components/Spinner";
 
 export default function SignIn() {
   const {
@@ -14,13 +15,13 @@ export default function SignIn() {
     userName,
     setUserName,
     addUser,
+    isLoading,
   } = useAuth();
-
   const navigate = useNavigate("");
 
   const handleSignUp = () => {
     addUser();
-    navigate("/app");
+    if (!isLoading) navigate("/app");
   };
 
   return (
@@ -61,14 +62,18 @@ export default function SignIn() {
         </div>
 
         <div>
-          <Button type="primary">Sign up</Button>
+          {isLoading ? <Spinner /> : <Button type="primary">Sign up</Button>}
         </div>
       </form>
       <div className={styles.signup}>
         <span>Already having Account ? </span>
-        <Button onClick={() => navigate("/Login")} type="secondary">
-          Login
-        </Button>
+        {isLoading ? (
+          <Spinner />
+        ) : (
+          <Button onClick={() => navigate("/Login")} type="secondary">
+            Login
+          </Button>
+        )}
       </div>
     </main>
   );
