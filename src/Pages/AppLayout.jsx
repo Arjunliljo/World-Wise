@@ -4,9 +4,20 @@ import SideBar from "../Components/AppComponents/SideBar";
 import PhoneNavigationPanal from "../Components/PhoneNavigationPanal";
 import styles from "./AppLayout.module.css";
 import { useCities } from "../Components/Contexts/CityContext";
+import { useAuth } from "../Components/Contexts/Authenticate";
+import { useNavigate } from "react-router-dom";
 
 function AppLayout() {
   const { isChecked, setIsChecked, isMobile } = useCities();
+
+  const { LOGGED_IN } = useAuth();
+
+  const navigate = useNavigate();
+
+  if (!LOGGED_IN) {
+    navigate("/login");
+    return;
+  }
 
   return (
     <div className={styles.app}>
