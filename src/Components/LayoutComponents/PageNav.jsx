@@ -3,9 +3,9 @@ import styles from "./PageNav.module.css";
 import Logo from "./Logo";
 import PhoneNavigationPanal from "./PhoneNavigationPanal";
 import { useEffect, useState } from "react";
-import { useCities } from "./Contexts/CityContext";
-import { useAuth } from "./Contexts/Authenticate";
-import Button from "./UtilityComponents/Button";
+import { useCities } from "../Contexts/CityContext";
+import { useAuth } from "../Contexts/Authenticate";
+import Button from "../UtilityComponents/Button";
 
 function Navigation() {
   const { isChecked, setIsChecked, isMobile } = useCities();

@@ -1,6 +1,6 @@
 // Uses the same styles as Product
 import styles from "./Product.module.css";
-import PageNav from "../Components/PageNav";
+import PageNav from "../Components/LayoutComponents/PageNav";
 
 export default function Product() {
   return (

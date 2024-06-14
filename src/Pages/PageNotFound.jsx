@@ -1,4 +1,4 @@
-import AppNav from "../Components/AppNav";
+import AppNav from "../Components/LayoutComponents/AppNav";
 
 export default function PageNotFound() {
   return (

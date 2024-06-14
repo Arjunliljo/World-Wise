@@ -1,8 +1,8 @@
 import { Outlet } from "react-router-dom";
-import AppNav from "../AppNav";
-import Logo from "../Logo";
+import AppNav from "../LayoutComponents/AppNav";
+import Logo from "../LayoutComponents/Logo";
 import styles from "./Sidebar.module.css";
-import User from "../User";
+import User from "../LayoutComponents/User";
 import { useAuth } from "../Contexts/Authenticate";
 
 function SideBar() {

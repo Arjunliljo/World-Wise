@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import Map from "../Components/AppComponents/MapComponents/Map";
 import SideBar from "../Components/AppComponents/SideBar";
-import PhoneNavigationPanal from "../Components/PhoneNavigationPanal";
+import PhoneNavigationPanal from "../Components/LayoutComponents/PhoneNavigationPanal";
 import styles from "./AppLayout.module.css";
 import { useCities } from "../Components/Contexts/CityContext";
 

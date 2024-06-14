@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import styles from "./Homepage.module.css";
-import PageNav from "../Components/PageNav";
+import PageNav from "../Components/LayoutComponents/PageNav";
 import { useAuth } from "../Components/Contexts/Authenticate";
 
 export default function Homepage() {

@@ -7,10 +7,10 @@ import Message from "./Message";
 import Spinner from "./Spinner";
 import DatePicker from "react-datepicker";
 import styles from "./Form.module.css";
-import Button from "./UtilityComponents/Button";
-import BackButton from "./UtilityComponents/BackButton";
-import { useUrlGeolacation } from "./Hooks/useUrlPosition";
-import { useCities } from "./Contexts/CityContext";
+import Button from "../UtilityComponents/Button";
+import BackButton from "../UtilityComponents/BackButton";
+import { useUrlGeolacation } from "../Hooks/useUrlPosition";
+import { useCities } from "../Contexts/CityContext";
 import { useNavigate } from "react-router-dom";
 
 export function convertToEmoji(countryCode) {

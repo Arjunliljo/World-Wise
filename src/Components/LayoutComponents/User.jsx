@@ -1,4 +1,4 @@
-import { useAuth } from "./Contexts/Authenticate";
+import { useAuth } from "../Contexts/Authenticate";
 import styles from "./User.module.css";
 
 const FAKE_USER = {

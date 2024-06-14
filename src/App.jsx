@@ -11,15 +11,15 @@ import Product from "./Pages/Product";
 import Pricing from "./Pages/Pricing";
 import Home from "./Pages/Homepage";
 import NotFound from "./Pages/PageNotFound";
-import SignIn from "./Pages/SignIn";
+import SignIn from "./Pages/LoginSignUp/SignIn";
 import AppLayout from "./Pages/AppLayout";
 import CityList from "./Components/AppComponents/CityComponents/CityList";
 import CountryList from "./Components/AppComponents/CountryComponent/CountryLish";
 import City from "./Components/AppComponents/CityComponents/City";
-import Form from "./Components/Form";
+import Form from "./Components/LayoutComponents/Form";
 import { CityProvider } from "./Components/Contexts/CityContext";
 import { AuthProvider } from "./Components/Contexts/Authenticate";
-import Login from "./Pages/Login";
+import Login from "./Pages/LoginSignUp/Login";
 import "./transitions.css"; // Import your CSS transitions
 
 function AnimatedRoutes() {

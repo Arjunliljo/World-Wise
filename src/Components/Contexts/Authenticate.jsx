@@ -60,16 +60,15 @@ function AuthProvider({ children }) {
 
   const addUser = async () => {
     const data = { userName, email, password };
-
     setIsLoading(true);
 
     try {
       const res = await axios.post("http://localhost:3000/user", data);
-      LOGGED_IN.current = true;
-      setError(null); // Clear any previous error
+      setError(null);
+      navigate("/login");
     } catch (e) {
+      alert("error while sign in");
       setError("Invalid User Name");
-      setLOGGED_IN(false);
     } finally {
       setIsLoading(false);
     }
@@ -113,6 +112,7 @@ function AuthProvider({ children }) {
         setLOGGED_IN,
         logout,
         login,
+        isLoading,
       }}
     >
       {children}
