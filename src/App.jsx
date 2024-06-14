@@ -6,7 +6,7 @@ import {
   Navigate,
   useLocation,
 } from "react-router-dom";
-import { TransitionGroup, CSSTransition } from "react-transition-group";
+
 import Product from "./Pages/Product";
 import Pricing from "./Pages/Pricing";
 import Home from "./Pages/Homepage";
@@ -20,40 +20,28 @@ import Form from "./Components/LayoutComponents/Form";
 import { CityProvider } from "./Components/Contexts/CityContext";
 import { AuthProvider } from "./Components/Contexts/Authenticate";
 import Login from "./Pages/LoginSignUp/Login";
-import "./transitions.css"; // Import your CSS transitions
-
-function AnimatedRoutes() {
-  const location = useLocation();
-
-  return (
-    <TransitionGroup>
-      <CSSTransition key={location.key} classNames="fade" timeout={300}>
-        <Routes location={location}>
-          <Route index element={<Home />} />
-          <Route path="products" element={<Product />} />
-          <Route path="pricing" element={<Pricing />} />
-          <Route path="app" element={<AppLayout />}>
-            <Route index element={<Navigate replace to="cities" />} />
-            <Route path="cities" element={<CityList />} />
-            <Route path="cities/:cityId" element={<City />} />
-            <Route path="countries" element={<CountryList />} />
-            <Route path="form" element={<Form />} />
-          </Route>
-          <Route path="SignIn" element={<SignIn />} />
-          <Route path="Login" element={<Login />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </CSSTransition>
-    </TransitionGroup>
-  );
-}
 
 function App() {
+  const location = useLocation();
   return (
     <BrowserRouter>
       <AuthProvider>
         <CityProvider>
-          <AnimatedRoutes />
+          <Routes location={location}>
+            <Route index element={<Home />} />
+            <Route path="products" element={<Product />} />
+            <Route path="pricing" element={<Pricing />} />
+            <Route path="app" element={<AppLayout />}>
+              <Route index element={<Navigate replace to="cities" />} />
+              <Route path="cities" element={<CityList />} />
+              <Route path="cities/:cityId" element={<City />} />
+              <Route path="countries" element={<CountryList />} />
+              <Route path="form" element={<Form />} />
+            </Route>
+            <Route path="SignIn" element={<SignIn />} />
+            <Route path="Login" element={<Login />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
         </CityProvider>
       </AuthProvider>
     </BrowserRouter>
