@@ -1,4 +1,10 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useLayoutEffect,
+  useState,
+} from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
@@ -8,13 +14,15 @@ function AuthProvider({ children }) {
   const [userName, setUserName] = useState("lil");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("111");
-  const [error, setError] = useState("");
+  const [error, setError] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const [LOGGED_IN, setLOGGED_IN] = useState(false);
   const navigate = useNavigate();
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const verifyLogin = async () => {
+      setIsLoading(true);
       try {
         const {
           data: { isLoggedIn },
@@ -23,59 +31,71 @@ function AuthProvider({ children }) {
         });
         setLOGGED_IN(true);
       } catch (e) {
-        console.log(e.message);
+        console.log("Not Logged in loading time verification");
         setLOGGED_IN(false);
         return false;
+      } finally {
+        setIsLoading(false);
       }
     };
     verifyLogin();
   }, []);
 
-  const login = async (e) => {
-    e.preventDefault();
-    await checkUser();
-    navigate("/app");
-    setPassword("");
-    setUserName("");
-  };
-
   const logout = async () => {
+    setIsLoading(true);
     try {
-      await axios.post("http://localhost:3000/auth/logout", {
+      await axios.get("http://localhost:3000/auth/logout", {
         withCredentials: true,
       });
       setLOGGED_IN(false);
+      setError(null);
       navigate("/");
     } catch (e) {
-      console.log(e);
-      alert("Something went wrong please try again later");
+      alert("Something went wrong while deleting...");
+      setError("Error while deleteing");
+    } finally {
+      setIsLoading(false);
     }
   };
 
   const addUser = async () => {
     const data = { userName, email, password };
 
-    axios
-      .post("http://localhost:3000/user", data)
-      .then((res) => (LOGGED_IN.current = true))
-      .catch((e) => {
-        setError("Invalid User Name");
-        setLOGGED_IN(false);
-      });
+    setIsLoading(true);
+
+    try {
+      const res = await axios.post("http://localhost:3000/user", data);
+      LOGGED_IN.current = true;
+      setError(null); // Clear any previous error
+    } catch (e) {
+      setError("Invalid User Name");
+      setLOGGED_IN(false);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
-  const checkUser = async () => {
+  const login = async (e) => {
+    e.preventDefault();
     const data = { userName, password };
-    axios
-      .post("http://localhost:3000/auth/login", data, { withCredentials: true })
-      .then((res) => {
-        setLOGGED_IN(true);
-        return true;
-      })
-      .catch((e) => {
-        setError("Invalid password");
-        setLOGGED_IN(false);
+    setIsLoading(true);
+    try {
+      const res = await axios.post("http://localhost:3000/auth/login", data, {
+        withCredentials: true,
       });
+      setLOGGED_IN(true);
+      setError(null);
+      navigate("/app");
+      setPassword("");
+      setUserName("");
+      return true;
+    } catch (e) {
+      setError("Invalid password");
+      setLOGGED_IN(false);
+      return false;
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -88,7 +108,6 @@ function AuthProvider({ children }) {
         userName,
         setUserName,
         addUser,
-        checkUser,
         error,
         LOGGED_IN,
         setLOGGED_IN,
