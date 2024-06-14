@@ -1,0 +1,9 @@
+/* ErrorComponent.module.css */
+.error {
+  padding: 10px;
+  margin: 10px 0;
+  background-color: #ffebee; /* Light red background */
+  border: 1px solid #e57373; /* Red border */
+  color: #c62828; /* Dark red text color */
+  border-radius: 4px;
+}

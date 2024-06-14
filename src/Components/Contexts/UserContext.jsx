@@ -1,6 +1,7 @@
 import axios from "axios";
 import { createContext, useContext, useEffect, useReducer } from "react";
 
+const BASE_URL = "http://localhost:3000";
 const UserContext = createContext();
 
 const initialState = {
@@ -38,26 +39,40 @@ function UserProvider({ children }) {
 
   const { isLoading, error, users } = state;
 
-  console.log(users);
+  console.log(error);
 
   useEffect(() => {
-    const getData = async () => {
-      dispatch({ type: "render" });
-      try {
-        const { data } = await axios.get("http://localhost:3000/user");
-        dispatch({ type: "usersData", payload: data });
-      } catch (e) {
-        alert("fetching users error");
-      }
-    };
-    getData();
-  }, []);
+    getAllUser();
+  }, [isLoading]);
+
+  async function getAllUser() {
+    try {
+      const { data } = await axios.get(`${BASE_URL}/user`);
+      dispatch({ type: "usersData", payload: data });
+    } catch (e) {
+      dispatch({
+        type: "rejected",
+        payload: "Check your network connection and retry...",
+      });
+    }
+  }
+
+  async function deleteUser(id) {
+    dispatch({ type: "render" });
+    try {
+      const res = await axios.delete(`${BASE_URL}/user/${id}`);
+    } catch (e) {
+      dispatch({ type: "rejected", payload: "Cannot delete the user" });
+    }
+  }
 
   return (
     <UserContext.Provider
       value={{
         isLoading,
         error,
+        users,
+        deleteUser,
       }}
     >
       {children}

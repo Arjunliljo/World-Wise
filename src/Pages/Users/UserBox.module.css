@@ -1,5 +1,68 @@
 .box {
   min-width: 10rem;
   min-height: 20rem;
-  background-color: yellow;
+  background-color: transparent;
+  border-radius: 5px;
+  /* box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1), 0 5px 15px rgba(0, 0, 0, 0.05); */
+  /* Pronounced drop shadow */
+
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+  cursor: pointer;
+  transition: background-color 0.5s, transform 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
 }
+.userName {
+  color: white;
+  font-size: 3rem;
+}
+.email {
+  font-size: 1.6rem;
+  background-color: var(--color-brand--2);
+  padding: 0.5rem 1rem;
+  border-radius: 3rem;
+  color: var(--color-dark--1);
+}
+
+.deleteBtn {
+  border: none;
+  margin-top: 3rem;
+  padding: 0.5rem 1rem;
+  border-radius: 3rem;
+  background-color: rgb(247, 92, 92);
+  cursor: pointer;
+}
+
+@media (hover: hover) {
+  .box:hover {
+    background-color: var(--color-brand--2);
+  }
+  .box:hover .email {
+    background-color: var(--color-dark--1);
+    color: var(--color-brand--2);
+  }
+
+  .box:active {
+    transform: translateY(1rem);
+  }
+}
+
+/* For devices that do not support hovering */
+@media (hover: none) {
+  .box {
+    /* You can define different styles for non-hover devices here if needed */
+  }
+}
+/* 
+--color-brand--1: #ffb545;
+--color-brand--2: #00c46a;
+
+--color-dark--0: #242a2e;
+--color-dark--1: #2d3439;
+--color-dark--2: #42484d;
+--color-light--1: #aaa;
+--color-light--2: #ececec;
+--color-light--3: #d6dee0;
+ */
