@@ -1,7 +1,7 @@
 import { NavLink } from "react-router-dom";
 import styles from "./PageNav.module.css";
-import Logo from "./Logo";
-import PhoneNavigationPanal from "./PhoneNavigationPanal";
+import Logo from "../UtilityComponents/Logo";
+import PhoneNavigationPanal from "../LayoutComponents/PhoneNavigationPanal";
 import { useEffect, useState } from "react";
 import { useCities } from "../Contexts/CityContext";
 import { useAuth } from "../Contexts/Authenticate";

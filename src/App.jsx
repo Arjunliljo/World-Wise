@@ -20,29 +20,31 @@ import Form from "./Components/LayoutComponents/Form";
 import { CityProvider } from "./Components/Contexts/CityContext";
 import { AuthProvider } from "./Components/Contexts/Authenticate";
 import Login from "./Pages/LoginSignUp/Login";
+import { UserProvider } from "./Components/Contexts/UserContext";
 
 function App() {
-  const location = useLocation();
   return (
     <BrowserRouter>
       <AuthProvider>
-        <CityProvider>
-          <Routes location={location}>
-            <Route index element={<Home />} />
-            <Route path="products" element={<Product />} />
-            <Route path="pricing" element={<Pricing />} />
-            <Route path="app" element={<AppLayout />}>
-              <Route index element={<Navigate replace to="cities" />} />
-              <Route path="cities" element={<CityList />} />
-              <Route path="cities/:cityId" element={<City />} />
-              <Route path="countries" element={<CountryList />} />
-              <Route path="form" element={<Form />} />
-            </Route>
-            <Route path="SignIn" element={<SignIn />} />
-            <Route path="Login" element={<Login />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </CityProvider>
+        <UserProvider>
+          <CityProvider>
+            <Routes>
+              <Route index element={<Home />} />
+              <Route path="products" element={<Product />} />
+              <Route path="pricing" element={<Pricing />} />
+              <Route path="app" element={<AppLayout />}>
+                <Route index element={<Navigate replace to="cities" />} />
+                <Route path="cities" element={<CityList />} />
+                <Route path="cities/:cityId" element={<City />} />
+                <Route path="countries" element={<CountryList />} />
+                <Route path="form" element={<Form />} />
+              </Route>
+              <Route path="SignIn" element={<SignIn />} />
+              <Route path="Login" element={<Login />} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </CityProvider>
+        </UserProvider>
       </AuthProvider>
     </BrowserRouter>
   );

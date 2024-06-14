@@ -3,8 +3,8 @@
 import "react-datepicker/dist/react-datepicker.css";
 
 import { useEffect, useState } from "react";
-import Message from "./Message";
-import Spinner from "./Spinner";
+import Message from "../UtilityComponents/Message";
+import Spinner from "../UtilityComponents/Spinner";
 import DatePicker from "react-datepicker";
 import styles from "./Form.module.css";
 import Button from "../UtilityComponents/Button";

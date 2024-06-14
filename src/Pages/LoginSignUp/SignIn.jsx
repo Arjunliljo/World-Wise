@@ -1,10 +1,10 @@
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../Components/Contexts/Authenticate";
-import PageNav from "../../Components/LayoutComponents/PageNav";
+import PageNav from "../../Components/Navs/PageNav";
 
 import Button from "../../Components/UtilityComponents/Button";
 import styles from "./Login.module.css";
-import Spinner from "../../Components/LayoutComponents/Spinner";
+import Spinner from "../../Components/UtilityComponents/Spinner";
 
 export default function SignIn() {
   const {
@@ -18,17 +18,13 @@ export default function SignIn() {
     isLoading,
   } = useAuth();
 
-  const navigate = useNavigate("");
-
-  const handleSingin = async () => {
-    await addUser();
-  };
+  const navigate = useNavigate();
 
   return (
     <main className={styles.login}>
       <PageNav />
 
-      <form className={styles.form} onSubmit={handleSingin}>
+      <form className={styles.form} onSubmit={addUser}>
         <div className={styles.row}>
           <label htmlFor="userName">User Name</label>
           <input

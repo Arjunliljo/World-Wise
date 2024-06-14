@@ -58,7 +58,8 @@ function AuthProvider({ children }) {
     }
   };
 
-  const addUser = async () => {
+  const addUser = async (e) => {
+    e.preventDefault();
     const data = { userName, email, password };
     setIsLoading(true);
 
