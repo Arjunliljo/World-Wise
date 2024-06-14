@@ -1,10 +1,12 @@
-import { createContext, useContext, useReducer } from "react";
+import axios from "axios";
+import { createContext, useContext, useEffect, useReducer } from "react";
 
 const UserContext = createContext();
 
 const initialState = {
   isLoading: false,
   error: null,
+  users: [],
 };
 
 function reducer(state, action) {
@@ -19,13 +21,37 @@ function reducer(state, action) {
         ...state,
         error: action.payload,
       };
+    case "usersData":
+      return {
+        ...state,
+        users: action.payload,
+        isLoading: false,
+      };
+
+    default:
+      throw new Error("Unidentified action");
   }
 }
 
 function UserProvider({ children }) {
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  const { isLoading, error } = state;
+  const { isLoading, error, users } = state;
+
+  console.log(users);
+
+  useEffect(() => {
+    const getData = async () => {
+      dispatch({ type: "render" });
+      try {
+        const { data } = await axios.get("http://localhost:3000/user");
+        dispatch({ type: "usersData", payload: data });
+      } catch (e) {
+        alert("fetching users error");
+      }
+    };
+    getData();
+  }, []);
 
   return (
     <UserContext.Provider

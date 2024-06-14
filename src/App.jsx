@@ -21,6 +21,7 @@ import { CityProvider } from "./Components/Contexts/CityContext";
 import { AuthProvider } from "./Components/Contexts/Authenticate";
 import Login from "./Pages/LoginSignUp/Login";
 import { UserProvider } from "./Components/Contexts/UserContext";
+import Users from "./Pages/Users/Users";
 
 function App() {
   return (
@@ -41,6 +42,7 @@ function App() {
               </Route>
               <Route path="SignIn" element={<SignIn />} />
               <Route path="Login" element={<Login />} />
+              <Route path="users" element={<Users />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </CityProvider>

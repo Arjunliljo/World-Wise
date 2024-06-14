@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import styles from "./PageNav.module.css";
 import Logo from "../UtilityComponents/Logo";
 import PhoneNavigationPanal from "../LayoutComponents/PhoneNavigationPanal";
@@ -7,7 +7,7 @@ import { useCities } from "../Contexts/CityContext";
 import { useAuth } from "../Contexts/Authenticate";
 import Button from "../UtilityComponents/Button";
 
-function Navigation() {
+function Navigation({ children = ["2.5rem", "5rem"] }) {
   const { isChecked, setIsChecked, isMobile } = useCities();
   const { LOGGED_IN, logout } = useAuth();
   const handelClick = () => setIsChecked(false);
@@ -20,27 +20,27 @@ function Navigation() {
         <PhoneNavigationPanal
           color={"var(--color-brand--2)"}
           bgCl="lightyellow"
-          top={isMobile ? "2rem" : "6rem"}
-          right={isMobile ? "4rem" : "8rem"}
+          top={children[0]}
+          right={children[1]}
           radialColors={["black", "darkgreen"]}
           onChecked={setIsChecked}
           isChecked={isChecked}
         >
           <ul>
             <li className={styles.link} onClick={handelClick}>
-              <NavLink to="/">Home</NavLink>
+              <Link to="/">Home</Link>
             </li>
             <li className={styles.link} onClick={handelClick}>
-              <NavLink to="/products">Products</NavLink>
+              <Link to="/products">Products</Link>
             </li>
             <li className={styles.link} onClick={handelClick}>
-              <NavLink to="/pricing">Pricing</NavLink>
+              <Link to="/users">Users</Link>
             </li>
             <li className={styles.link} onClick={handelClick}>
               {LOGGED_IN ? (
                 <a onClick={logout}>Logout</a>
               ) : (
-                <NavLink to={"/SignIn"}>Sign in</NavLink>
+                <Link to={"/SignIn"}>Sign in</Link>
               )}
             </li>
           </ul>
@@ -54,8 +54,8 @@ function Navigation() {
           <li className={styles.deskLink} onClick={handelClick}>
             <NavLink to="/products">Products</NavLink>
           </li>
-          <li className={styles.deskLink} onClick={handelClick}>
-            <NavLink to="/pricing">Pricing</NavLink>
+          <li className={styles.desklink} onClick={handelClick}>
+            <NavLink to="/users">Users</NavLink>
           </li>
           <li className={styles.deskLink} onClick={handelClick}>
             {LOGGED_IN ? (

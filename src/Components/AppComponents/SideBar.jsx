@@ -2,7 +2,7 @@ import { Outlet } from "react-router-dom";
 import AppNav from "../Navs/AppNav";
 import Logo from "../UtilityComponents/Logo";
 import styles from "./Sidebar.module.css";
-import User from "../LayoutComponents/User";
+import User from "../../Pages/Users/User";
 import { useAuth } from "../Contexts/Authenticate";
 
 function SideBar() {

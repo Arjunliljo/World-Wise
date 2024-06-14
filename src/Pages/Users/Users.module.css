@@ -1,0 +1,50 @@
+.main {
+  padding: 3rem;
+  background-color: var(--color-light--2);
+
+  min-height: 100svh;
+}
+.section {
+  min-height: calc(100svh - 6rem);
+  padding: 4rem;
+  background-color: var(--color-dark--1);
+}
+.grid {
+  padding-top: 5rem;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+}
+
+@media (max-width: 992px) {
+  .main {
+    padding: 0;
+  }
+  .grid {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 576px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* 
+--color-brand--1: #ffb545;
+--color-brand--2: #00c46a;
+
+--color-dark--0: #242a2e;
+--color-dark--1: #2d3439;
+--color-dark--2: #42484d;
+--color-light--1: #aaa;
+--color-light--2: #ececec;
+--color-light--3: #d6dee0;
+ */
