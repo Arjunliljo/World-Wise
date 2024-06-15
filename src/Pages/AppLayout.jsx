@@ -12,8 +12,8 @@ function AppLayout() {
     <div className={styles.app}>
       {isMobile && (
         <PhoneNavigationPanal
-          top="3rem"
-          right="5rem"
+          top="2rem"
+          right="2rem"
           isChecked={isChecked}
           onChecked={setIsChecked}
           radialColors={["var(--color-dark--1)", "var(--color-dark--2)"]}

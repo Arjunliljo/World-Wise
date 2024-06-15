@@ -37,6 +37,7 @@
   .homepage {
     margin: 0;
     height: 100vh;
+    padding: 2rem;
   }
   .homepage h1 {
     font-size: 3rem;

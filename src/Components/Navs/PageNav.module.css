@@ -39,3 +39,10 @@ a.ctaLink:visited {
   font-size: 3rem !important;
   font-weight: 900 !important;
 }
+
+.mobileLogoPos {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: none;
+}

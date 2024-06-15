@@ -1,4 +1,6 @@
 import { createContext, useContext, useEffect, useReducer } from "react";
+import { useAuth } from "./Authenticate";
+import axios from "axios";
 
 const BASE_URL = "http://localhost:3000";
 const CityContext = createContext();
@@ -67,6 +69,8 @@ function reducer(state, action) {
 }
 
 function CityProvider({ children }) {
+  const { LOGGED_IN, curUserId } = useAuth();
+
   const [
     { cities, isChecked, isLoading, currentCity, isMobile, error },
     dispatch,
@@ -89,6 +93,16 @@ function CityProvider({ children }) {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
+
+  async function getCities() {
+    if (!LOGGED_IN) return;
+
+    try {
+      const res = await axios.get(`${BASE_URL}/${curUserId}/city`);
+    } catch {
+      alert("something went wrong");
+    }
+  }
 
   useEffect(() => {
     dispatch({ type: "Loading" });
@@ -179,6 +193,7 @@ function CityProvider({ children }) {
         isMobile,
         deleteCity,
         error,
+        getCities,
       }}
     >
       {children}

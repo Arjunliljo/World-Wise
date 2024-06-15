@@ -7,7 +7,7 @@ import Error from "../../Components/UtilityComponents/Error";
 
 function Users() {
   const { users, isLoading, error } = useUser();
-  console.log(users);
+
   return (
     <main className={styles.main}>
       <section className={styles.section}>

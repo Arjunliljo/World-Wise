@@ -26,7 +26,7 @@ function City() {
   }, [cityId]);
 
   const { cityName, emoji, date, notes } = currentCity;
-  console.log(isLoading, error);
+
   if (isLoading) return <Spinner />;
   if (error) return <Message message={"Error while fetching"} />;
   return (

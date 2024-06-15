@@ -1,5 +1,6 @@
 import axios from "axios";
 import { createContext, useContext, useEffect, useReducer } from "react";
+import { useAuth } from "./Authenticate";
 
 const BASE_URL = "http://localhost:3000";
 const UserContext = createContext();
@@ -35,15 +36,15 @@ function reducer(state, action) {
 }
 
 function UserProvider({ children }) {
+  const { addUser } = useAuth();
+
   const [state, dispatch] = useReducer(reducer, initialState);
 
   const { isLoading, error, users } = state;
 
-  console.log(error);
-
   useEffect(() => {
     getAllUser();
-  }, [isLoading]);
+  }, [isLoading, addUser]);
 
   async function getAllUser() {
     try {

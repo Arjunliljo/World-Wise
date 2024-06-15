@@ -1,10 +1,4 @@
-import {
-  createContext,
-  useContext,
-  useEffect,
-  useLayoutEffect,
-  useState,
-} from "react";
+import { createContext, useContext, useLayoutEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
@@ -16,7 +10,7 @@ function AuthProvider({ children }) {
   const [password, setPassword] = useState("111");
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-
+  const [curUserId, setCurUserId] = useState(null);
   const [LOGGED_IN, setLOGGED_IN] = useState(false);
   const navigate = useNavigate();
 
@@ -60,6 +54,7 @@ function AuthProvider({ children }) {
 
   const addUser = async (e) => {
     e.preventDefault();
+
     const data = { userName, email, password };
     setIsLoading(true);
 
@@ -80,9 +75,14 @@ function AuthProvider({ children }) {
     const data = { userName, password };
     setIsLoading(true);
     try {
-      const res = await axios.post("http://localhost:3000/auth/login", data, {
+      const {
+        data: {
+          user: { _id: curUserID },
+        },
+      } = await axios.post("http://localhost:3000/auth/login", data, {
         withCredentials: true,
       });
+      setCurUserId(curUserID);
       setLOGGED_IN(true);
       setError(null);
       navigate("/app");
@@ -114,6 +114,7 @@ function AuthProvider({ children }) {
         logout,
         login,
         isLoading,
+        curUserId,
       }}
     >
       {children}

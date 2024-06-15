@@ -13,7 +13,6 @@ function CountryList() {
     if (!acc.map((el) => el.country).includes(city.country)) acc.push(city);
     return acc;
   }, []);
-  console.log(countries);
 
   return (
     <ul className={styles.countryList}>

@@ -34,7 +34,8 @@
   margin: 0 auto;
 }
 .signup span {
-  font-size: 2rem;
+  font-size: 1.2rem;
+  text-wrap: nowrap;
 }
 .notFound {
   color: red;

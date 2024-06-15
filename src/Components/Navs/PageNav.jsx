@@ -2,12 +2,12 @@ import { Link, NavLink } from "react-router-dom";
 import styles from "./PageNav.module.css";
 import Logo from "../UtilityComponents/Logo";
 import PhoneNavigationPanal from "../LayoutComponents/PhoneNavigationPanal";
-import { useEffect, useState } from "react";
+
 import { useCities } from "../Contexts/CityContext";
 import { useAuth } from "../Contexts/Authenticate";
 import Button from "../UtilityComponents/Button";
 
-function Navigation({ children = ["2.5rem", "5rem"] }) {
+function Navigation({ children = ["2rem", "2rem"] }) {
   const { isChecked, setIsChecked, isMobile } = useCities();
   const { LOGGED_IN, logout } = useAuth();
   const handelClick = () => setIsChecked(false);
