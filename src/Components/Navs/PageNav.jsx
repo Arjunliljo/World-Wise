@@ -16,13 +16,23 @@ function Navigation({ children = ["2rem", "2rem"] }) {
     <nav className={styles.nav}>
       <Logo />
 
+      {/* --color-brand--1: #ffb545;
+  --color-brand--2: #00c46a;
+
+  --color-dark--0: #242a2e;
+  --color-dark--1: #2d3439;
+  --color-dark--2: #42484d;
+  --color-light--1: #aaa;
+  --color-light--2: #ececec;
+  --color-light--3: #d6dee0; */}
+
       {isMobile && (
         <PhoneNavigationPanal
-          color={"var(--color-brand--2)"}
+          color={"var(--color-dark--2)"}
           bgCl="lightyellow"
           top={children[0]}
           right={children[1]}
-          radialColors={["black", "darkgreen"]}
+          radialColors={["var(--color-dark--2)", "var(--color-dark--0)"]}
           onChecked={setIsChecked}
           isChecked={isChecked}
         >
