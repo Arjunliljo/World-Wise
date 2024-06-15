@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 
 const AuthContext = createContext();
 
+const BASE_URL = "https://worldwisebackendxml.onrender.com/";
+
 function AuthProvider({ children }) {
   const [userName, setUserName] = useState("lil");
   const [email, setEmail] = useState("");
@@ -20,7 +22,7 @@ function AuthProvider({ children }) {
       try {
         const {
           data: { isLoggedIn },
-        } = await axios.get("http://localhost:3000/auth/verify", {
+        } = await axios.get(`${BASE_URL}auth/verify`, {
           withCredentials: true,
         });
         setLOGGED_IN(true);
@@ -38,7 +40,7 @@ function AuthProvider({ children }) {
   const logout = async () => {
     setIsLoading(true);
     try {
-      await axios.get("http://localhost:3000/auth/logout", {
+      await axios.get(`${BASE_URL}auth/logout`, {
         withCredentials: true,
       });
       setLOGGED_IN(false);
@@ -59,7 +61,7 @@ function AuthProvider({ children }) {
     setIsLoading(true);
 
     try {
-      const res = await axios.post("http://localhost:3000/user", data);
+      const res = await axios.post(`${BASE_URL}user`, data);
       setError(null);
       navigate("/login");
     } catch (e) {
@@ -79,7 +81,7 @@ function AuthProvider({ children }) {
         data: {
           user: { _id: curUserID },
         },
-      } = await axios.post("http://localhost:3000/auth/login", data, {
+      } = await axios.post(`${BASE_URL}auth/login`, data, {
         withCredentials: true,
       });
       setCurUserId(curUserID);

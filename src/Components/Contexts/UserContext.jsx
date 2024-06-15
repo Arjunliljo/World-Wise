@@ -2,7 +2,7 @@ import axios from "axios";
 import { createContext, useContext, useEffect, useReducer } from "react";
 import { useAuth } from "./Authenticate";
 
-const BASE_URL = "http://localhost:3000";
+const BASE_URL = "https://worldwisebackendxml.onrender.com/";
 const UserContext = createContext();
 
 const initialState = {
@@ -48,7 +48,7 @@ function UserProvider({ children }) {
 
   async function getAllUser() {
     try {
-      const { data } = await axios.get(`${BASE_URL}/user`);
+      const { data } = await axios.get(`${BASE_URL}user`);
       dispatch({ type: "usersData", payload: data });
     } catch (e) {
       dispatch({
@@ -61,7 +61,7 @@ function UserProvider({ children }) {
   async function deleteUser(id) {
     dispatch({ type: "render" });
     try {
-      const res = await axios.delete(`${BASE_URL}/user/${id}`);
+      const res = await axios.delete(`${BASE_URL}user/${id}`);
     } catch (e) {
       dispatch({ type: "rejected", payload: "Cannot delete the user" });
     }

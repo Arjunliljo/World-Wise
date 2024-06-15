@@ -2,7 +2,7 @@ import { createContext, useContext, useEffect, useReducer } from "react";
 import { useAuth } from "./Authenticate";
 import axios from "axios";
 
-const BASE_URL = "http://localhost:3000";
+const BASE_URL = "https://worldwisebackendxml.onrender.com/";
 const CityContext = createContext();
 
 const initialState = {
@@ -98,7 +98,7 @@ function CityProvider({ children }) {
     if (!LOGGED_IN) return;
 
     try {
-      const res = await axios.get(`${BASE_URL}/${curUserId}/city`);
+      const res = await axios.get(`${BASE_URL}${curUserId}city`);
     } catch {
       alert("something went wrong");
     }
@@ -109,7 +109,7 @@ function CityProvider({ children }) {
 
     const fetchCities = async () => {
       try {
-        const res = await fetch(`${BASE_URL}/cities`);
+        const res = await fetch(`${BASE_URL}cities`);
         if (!res.ok) {
           throw new Error("Failed to fetch cities");
         }
@@ -131,7 +131,7 @@ function CityProvider({ children }) {
     dispatch({ type: "Loading" });
 
     try {
-      const res = await fetch(`${BASE_URL}/cities/${id}`);
+      const res = await fetch(`${BASE_URL}cities/${id}`);
       if (!res.ok) {
         throw new Error("Failed to fetch city");
       }
@@ -146,7 +146,7 @@ function CityProvider({ children }) {
     dispatch({ type: "Loading" });
 
     try {
-      const res = await fetch(`${BASE_URL}/cities`, {
+      const res = await fetch(`${BASE_URL}cities`, {
         method: "POST",
         body: JSON.stringify(newCity),
         headers: {
@@ -167,7 +167,7 @@ function CityProvider({ children }) {
     dispatch({ type: "Loading" });
 
     try {
-      const res = await fetch(`${BASE_URL}/cities/${id}`, {
+      const res = await fetch(`${BASE_URL}cities/${id}`, {
         method: "DELETE",
       });
       if (!res.ok) {
