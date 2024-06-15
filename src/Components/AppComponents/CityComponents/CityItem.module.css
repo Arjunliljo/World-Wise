@@ -52,3 +52,9 @@
   background-color: var(--color-brand--1);
   color: var(--color-dark--1);
 }
+
+@media screen and (max-width: 768px) {
+  .date {
+    font-size: 1.2rem;
+  }
+}

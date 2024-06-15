@@ -45,5 +45,6 @@
   .login {
     margin: 0;
     height: 100vh;
+    padding: 1rem;
   }
 }
