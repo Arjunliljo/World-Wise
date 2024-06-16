@@ -19,16 +19,6 @@ import City from "./Components/AppComponents/CityComponents/City";
 import Form from "./Components/LayoutComponents/Form";
 import SpinnerFullPage from "./Components/UtilityComponents/SpinnerFullPage";
 
-//Pages
-// import Product from "./Pages/Product";
-// import Pricing from "./Pages/Pricing";
-// import Home from "./Pages/Homepage";
-// import NotFound from "./Pages/PageNotFound";
-// import SignIn from "./Pages/LoginSignUp/SignIn";
-// import AppLayout from "./Pages/AppLayout";
-// import Login from "./Pages/LoginSignUp/Login";
-// import Users from "./Pages/Users/Users";
-
 const Product = lazy(() => import("./Pages/Product"));
 const Pricing = lazy(() => import("./Pages/Pricing"));
 const Home = lazy(() => import("./Pages/Homepage"));

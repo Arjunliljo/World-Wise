@@ -7,9 +7,9 @@ const AuthContext = createContext();
 const BASE_URL = "https://worldwisebackendxml.onrender.com/";
 
 function AuthProvider({ children }) {
-  const [userName, setUserName] = useState("lil");
+  const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("111");
+  const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [curUserId, setCurUserId] = useState(null);

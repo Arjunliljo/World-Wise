@@ -1,4 +1,3 @@
-import { useState, useEffect } from "react";
 import Map from "../Components/AppComponents/MapComponents/Map";
 import SideBar from "../Components/AppComponents/SideBar";
 import PhoneNavigationPanal from "../Components/LayoutComponents/PhoneNavigationPanal";
